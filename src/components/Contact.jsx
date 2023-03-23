@@ -4,7 +4,7 @@ function Contact({ contact }) {
 
   return (
     <tr>
-      <td><img src={contact.pictureUrl} alt={`${contact.name} pic`} /></td>
+      <td><img src={contact.pictureUrl} alt={`${contact.name} pic`} style={{width: 60}} /></td>
       <td>{contact.name}</td>
       <td>{contact.popularity.toFixed(2)}</td>
       {contact.wonOscar ? <td>🏆</td> : <td></td>}

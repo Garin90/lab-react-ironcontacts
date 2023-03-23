@@ -1,32 +1,52 @@
-import React, {useEffect, useState} from 'react';
-import contacts from "../contacts.json";
+import React, { useState } from 'react';
+import contactsDB from "../contacts.json";
 import Contact from './Contact';
 
-function ContactTable() {
-  const [contactsTable, setContactsTable] = useState([]);
 
-  useEffect(() => {
-    const firstFive = contacts.slice(0,5);
-    setContactsTable(firstFive);
-  },[])
+const restContacts = contactsDB.map( x => x );
+
+for(let i = 0; i < 5; i++){
+  restContacts.shift();
+}
+
+function ContactTable() {
+  const contactsArray = contactsDB.slice(0,5);
+  const [contacts, setContacts] = useState(contactsArray);
+  
+  
+
+  function handleAddRandomContact() {
+    if(restContacts.length !== 0) {
+      const index = (Math.floor(Math.random()*restContacts.length))
+      setContacts([...new Set([restContacts[index], ...contacts])])
+    
+      restContacts.splice(index, 1);
+    } else {
+      return
+    }
+  }
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Picture</th>
-          <th>Name</th>
-          <th>Popularity</th>
-          <th>Won an Oscar</th>
-          <th>Won an Emmy</th>
-        </tr>
-      </thead>
-      <tbody>
-        {contactsTable.map((contact) => (
-          <Contact contact={contact} key={contact.id} />
-        ))}
-      </tbody>
-    </table>
+    <div>
+      <h1>IronContacts</h1>
+      <button onClick={handleAddRandomContact}>Add Random Contact</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Popularity</th>
+            <th>Won an Oscar</th>
+            <th>Won an Emmy</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contacts.map((contact) => (
+            <Contact contact={contact} key={contact.id} />
+          ))}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
