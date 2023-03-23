@@ -33,6 +33,13 @@ function ContactTable() {
   function handleSortName() {
     setContacts([...contacts].sort((a, b) => a.name.localeCompare(b.name)))
   }
+
+  function handleOnClickDelete(contact) {
+    setContacts([...contacts].filter((contactToDelete) => contactToDelete.id !== contact.id ));
+    restContacts.push(contact);
+    console.log(restContacts);
+    
+  }
  
 
   return (
@@ -49,11 +56,12 @@ function ContactTable() {
             <th>Popularity</th>
             <th>Won an Oscar</th>
             <th>Won an Emmy</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {contacts.map((contact) => (
-            <Contact contact={contact} key={contact.id} />
+            <Contact contact={contact} key={contact.id} onClickDelete={handleOnClickDelete} />
           ))}
         </tbody>
       </table>

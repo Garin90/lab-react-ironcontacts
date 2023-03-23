@@ -1,6 +1,9 @@
 import React from 'react'
 
-function Contact({ contact }) {
+function Contact({ contact, onClickDelete }) {
+  function handleOnClickDelete() {
+    onClickDelete(contact)
+  }
 
   return (
     <tr>
@@ -9,6 +12,7 @@ function Contact({ contact }) {
       <td>{contact.popularity.toFixed(2)}</td>
       {contact.wonOscar ? <td>🏆</td> : <td></td>}
       {contact.wonEmmy ? <td>🏆</td> : <td></td>}
+      <td><button onClick={handleOnClickDelete}>Delete</button></td>
     </tr>
   )
 }
