@@ -26,10 +26,21 @@ function ContactTable() {
     }
   }
 
+  function handleSortPopularity() {
+    setContacts([...contacts].sort((a, b) =>  b.popularity - a.popularity))
+  }
+
+  function handleSortName() {
+    setContacts([...contacts].sort((a, b) => a.name.localeCompare(b.name)))
+  }
+ 
+
   return (
     <div>
       <h1>IronContacts</h1>
       <button onClick={handleAddRandomContact}>Add Random Contact</button>
+      <button onClick={handleSortPopularity}>Sort by popularity</button>
+      <button onClick={handleSortName}>Sort by Name</button>
       <table>
         <thead>
           <tr>
